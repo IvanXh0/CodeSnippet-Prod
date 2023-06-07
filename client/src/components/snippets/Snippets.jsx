@@ -7,6 +7,7 @@ import {
   Container,
   TablePagination,
   Button,
+  CircularProgress,
 } from '@mui/material';
 import api from '../../auth/axiosInstance';
 import SnippetEditor from './SnippetEditor';
@@ -30,6 +31,7 @@ const Snippets = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
 
   const fetchSnippets = async () => {
     setLoading(true);
@@ -43,12 +45,14 @@ const Snippets = () => {
   };
 
   const fetchSearchQuery = async query => {
+    setSearchLoading(true);
     try {
       const response = await api.get(`/api/snippets/search?query=${query}`);
       setSnippets(response.data);
     } catch (error) {
       console.log(error);
     }
+    setSearchLoading(false);
   };
 
   const handleSearch = event => {
@@ -128,7 +132,6 @@ const Snippets = () => {
 
   return (
     <>
-      {loading && <LoadingAnimation />}
       <Container maxWidth="lg">
         <Box display="flex" mt={3} justifyContent="space-between">
           <Box>
@@ -142,7 +145,14 @@ const Snippets = () => {
           </Box>
           <IconButton sx={{ mr: 4 }} color="primary" onClick={handleBadgeClick}>
             <SearchIcon fontSize="large" />
-            <Typography variant="body1">Search</Typography>
+            {searchLoading ? (
+              <CircularProgress
+                sx={{ ml: 1, color: 'primary.main' }}
+                size={24}
+              />
+            ) : (
+              <Typography variant="body1">Search</Typography>
+            )}
           </IconButton>
           <Box flexGrow={1} />{' '}
           <Box>
@@ -163,7 +173,7 @@ const Snippets = () => {
             </Button>
           </Box>
         </Box>
-
+        {loading && <LoadingAnimation />}
         <SearchBar
           searchQuery={searchQuery}
           handleSearch={handleSearch}
