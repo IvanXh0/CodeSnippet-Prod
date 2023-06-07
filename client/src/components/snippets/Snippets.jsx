@@ -43,14 +43,12 @@ const Snippets = () => {
   };
 
   const fetchSearchQuery = async query => {
-    setLoading(true);
     try {
       const response = await api.get(`/api/snippets/search?query=${query}`);
       setSnippets(response.data);
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
   };
 
   const handleSearch = event => {
