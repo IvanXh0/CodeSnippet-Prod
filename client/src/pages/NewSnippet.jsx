@@ -22,16 +22,6 @@ const NewSnippet = () => {
   const [snippetLanguage, setSnippetLanguage] = useState('');
   const [snippetCode, setSnippetCode] = useState('');
   const navigate = useNavigate();
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    const newSocket = io('http://localhost:8001/');
-    setSocket(newSocket);
-
-    return () => {
-      newSocket.disconnect();
-    };
-  }, []);
 
   const handleTitleChange = e => {
     setSnippetTitle(e.target.value);
@@ -43,24 +33,7 @@ const NewSnippet = () => {
 
   const handleCodeChange = value => {
     setSnippetCode(value);
-    if (socket) {
-      socket.emit('snippetUpdate', value);
-    }
   };
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('snippetUpdate', data => {
-        setSnippetCode(data);
-      });
-    }
-
-    return () => {
-      if (socket) {
-        socket.off('snippetUpdate');
-      }
-    };
-  }, [socket]);
 
   const handleSubmit = async () => {
     try {

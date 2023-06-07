@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: 'https://codesnippet-prod-production.up.railway.app/',
-  timeout: 2000,
 });
 
 axiosInstance.interceptors.request.use(

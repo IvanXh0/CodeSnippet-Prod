@@ -17,6 +17,7 @@ import SnippetTable from './SnippetTable';
 import SearchIcon from '@mui/icons-material/Search';
 import { handleAddSnippet } from '../../utils/snippetUtils';
 import { useNavigate } from 'react-router-dom';
+import LoadingAnimation from '../LoadingAnimation';
 
 const Snippets = () => {
   const [snippets, setSnippets] = useState([]);
@@ -28,23 +29,28 @@ const Snippets = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const fetchSnippets = async () => {
+    setLoading(true);
     try {
       const response = await api.get('/api/snippets');
       setSnippets(response.data);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const fetchSearchQuery = async query => {
+    setLoading(true);
     try {
       const response = await api.get(`/api/snippets/search?query=${query}`);
       setSnippets(response.data);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const handleSearch = event => {
@@ -124,6 +130,7 @@ const Snippets = () => {
 
   return (
     <>
+      {loading && <LoadingAnimation />}
       <Container maxWidth="lg">
         <Box display="flex" mt={3} justifyContent="space-between">
           <Box>
