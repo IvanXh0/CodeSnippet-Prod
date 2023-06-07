@@ -1,3 +1,4 @@
+import { useState, useContext } from 'react';
 import { Box, Button, ThemeProvider, Typography } from '@mui/material';
 import Lottie from 'lottie-react';
 import animationData from '../../assets/code3.json';
@@ -5,11 +6,39 @@ import { theme } from '../../utils/themeUtils';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { handleAddSnippet } from '../../utils/snippetUtils';
+import { GoogleLogin } from '@react-oauth/google';
+import { useStore } from '../../hooks/useStore';
+import { AuthContext } from '../../auth/AuthContext';
+import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { authData, setAuthData } = useStore();
+  const { login } = useContext(AuthContext);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
   const handleAddSnippetClick = () => {
+    if (!authData) {
+      setShowLoginPrompt(true);
+    } else {
+      handleAddSnippet(navigate);
+    }
+  };
+
+  const handleGoogleLoginSuccess = async credentialResponse => {
+    const { data } = await axios.post(
+      'https://codesnippet-prod-production.up.railway.app/api/auth/login',
+      {
+        token: credentialResponse.credential,
+      }
+    );
+    localStorage.setItem('AuthData', JSON.stringify(data));
+    setAuthData(data);
+    localStorage.setItem('accessToken', data.accessToken);
+    login(data.accessToken);
+
+    // after all is done:
     handleAddSnippet(navigate);
   };
 
@@ -70,6 +99,33 @@ const HeroSection = () => {
             Create snippet
           </Button>
         </Box>
+        {showLoginPrompt && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginTop: '1rem',
+            }}
+          >
+            <Typography variant="h6" color="textPrimary" align="center">
+              Let's log you in first, shall we?
+            </Typography>
+            <GoogleLogin
+              useOneTap={true}
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              onSuccess={handleGoogleLoginSuccess}
+              onFailure={() => {
+                console.log('Login Failed');
+              }}
+              cookiePolicy={'single_host_origin'}
+              style={{ marginTop: '1rem' }}
+            />
+          </motion.div>
+        )}
         <Box mt={2}>
           <Lottie animationData={animationData} />
         </Box>
