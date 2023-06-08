@@ -197,7 +197,7 @@ const Navbar = () => {
                   useOneTap={true}
                   onSuccess={async credentialResponse => {
                     const { data } = await axios.post(
-                      'https://codesnippet-prod-production.up.railway.app/api/auth/login',
+                      'https://codesnippet-prod.onrender.com/api/auth/login',
                       {
                         token: credentialResponse.credential,
                       }

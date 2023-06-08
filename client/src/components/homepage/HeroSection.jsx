@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Box, Button, ThemeProvider, Typography } from '@mui/material';
 import Lottie from 'lottie-react';
-import animationData from '../../assets/code3.json';
+import animatedJson from '../../assets/code3.json';
 import { theme } from '../../utils/themeUtils';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -17,6 +17,7 @@ const HeroSection = () => {
   const { authData, setAuthData } = useStore();
   const { login } = useContext(AuthContext);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const animationData = JSON.parse(JSON.stringify(animatedJson));
 
   const handleAddSnippetClick = () => {
     if (!authData) {
@@ -28,7 +29,7 @@ const HeroSection = () => {
 
   const handleGoogleLoginSuccess = async credentialResponse => {
     const { data } = await axios.post(
-      'https://codesnippet-prod-production.up.railway.app/api/auth/login',
+      'https://codesnippet-prod.onrender.com/api/auth/login',
       {
         token: credentialResponse.credential,
       }
