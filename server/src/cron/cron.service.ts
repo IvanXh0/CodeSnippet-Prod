@@ -9,7 +9,7 @@ export class CronService {
     try {
       await axios.get('https://codesnippet-prod.onrender.com/api/snippets');
     } catch (error) {
-      console.error(error);
+      console.log(error.message);
     }
   }
 }
