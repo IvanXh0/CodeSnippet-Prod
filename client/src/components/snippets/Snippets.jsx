@@ -94,7 +94,7 @@ const Snippets = () => {
   };
 
   const handleOpenSnippetInEditor = snippetId => {
-    const url = `https://code-snippet-prod.vercel.app/f/${snippetId}`;
+    const url = `https://codesnippet.app/f/${snippetId}`;
     window.open(url, '_blank');
   };
 
@@ -117,9 +117,7 @@ const Snippets = () => {
   };
 
   const handleCopyLink = snippetId => {
-    navigator.clipboard.writeText(
-      `https://code-snippet-prod.vercel.app/f/${snippetId}`
-    );
+    navigator.clipboard.writeText(`https://www.codesnippet.app/f/${snippetId}`);
   };
 
   const handleAddSnippetClick = () => {
