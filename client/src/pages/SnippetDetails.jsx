@@ -43,6 +43,12 @@ const SnippetDetails = () => {
         setSnippetCode(code);
         setSnippetLanguage(language);
         setSnippetOwner(email);
+
+        const selectedLanguage = languages.find(
+          lang => lang.name.split(' ')[0] === language
+        );
+
+        setLanguageId(selectedLanguage?.id || null);
       } catch (error) {
         console.log(error);
       }
