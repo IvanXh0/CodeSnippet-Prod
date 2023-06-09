@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Button,
   Dialog,
@@ -11,27 +11,33 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@mui/material";
-import { Editor } from "@monaco-editor/react";
-import api from "../../auth/axiosInstance";
-import { languages } from "../../utils/languageUtils";
+} from '@mui/material';
+import { Editor } from '@monaco-editor/react';
+import api from '../../auth/axiosInstance';
+import { languages } from '../../utils/languageUtils';
 
-const SnippetEditor = (
-  { fetchSnippets, id, title, code, language, handleClose, open },
-) => {
+const SnippetEditor = ({
+  fetchSnippets,
+  id,
+  title,
+  code,
+  language,
+  handleClose,
+  open,
+}) => {
   const [snippetCode, setSnippetCode] = useState(code);
   const [snippetLanguage, setSnippetLanguage] = useState(language);
   const [snippetTitle, setSnippetTitle] = useState(title);
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = e => {
     setSnippetTitle(e.target.value);
   };
 
-  const handleCodeChange = (value) => {
+  const handleCodeChange = value => {
     setSnippetCode(value);
   };
 
-  const handleLanguageChange = (e) => {
+  const handleLanguageChange = e => {
     setSnippetLanguage(e.target.value);
   };
 
@@ -75,9 +81,13 @@ const SnippetEditor = (
                 onChange={handleLanguageChange}
                 autoWidth
               >
-                {languages.map((language) => (
-                  <MenuItem key={language.value} value={language.value}>
-                    {language.label}
+                {languages.map(language => (
+                  <MenuItem
+                    key={language.id}
+                    value={language.name.split(' ')[0]}
+                    id={language.id}
+                  >
+                    {language.name}
                   </MenuItem>
                 ))}
               </Select>
