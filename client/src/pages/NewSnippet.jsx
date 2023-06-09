@@ -17,6 +17,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { languages } from '../utils/languageUtils';
 import api from '../auth/axiosInstance';
 import axios from 'axios';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 
 const NewSnippet = () => {
   const [snippetTitle, setSnippetTitle] = useState('');
@@ -183,23 +184,43 @@ const NewSnippet = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Box width="fit-content" mx="auto" mt={3}>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 2,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              mt={3}
+            >
               <Button
                 onClick={handleSubmit}
                 variant="contained"
-                size="large"
-                color="success"
+                size="medium"
+                sx={{
+                  backgroundColor: '#3f51b5',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#303f9f',
+                  },
+                }}
+                startIcon={<SaveIcon />}
               >
-                <SaveIcon />
                 Save Changes
               </Button>
               <Button
                 onClick={handleCompile}
                 variant="contained"
                 disabled={processing}
-                sx={{ ml: 2 }}
-                size="large"
-                color="warning"
+                sx={{
+                  backgroundColor: '#f44336',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#d32f2f',
+                  },
+                }}
+                size="medium"
+                startIcon={<SettingsSuggestIcon />}
               >
                 Compile Code
               </Button>

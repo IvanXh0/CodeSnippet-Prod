@@ -15,6 +15,8 @@ import {
 import { Editor } from '@monaco-editor/react';
 import api from '../../auth/axiosInstance';
 import { languages } from '../../utils/languageUtils';
+import CheckIcon from '@mui/icons-material/Check';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const SnippetEditor = ({
   fetchSnippets,
@@ -110,10 +112,34 @@ const SnippetEditor = ({
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="warning">
+        <Button
+          onClick={handleClose}
+          color="warning"
+          sx={{
+            paddingInline: 2,
+            backgroundColor: '#f44336',
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#d32f2f',
+            },
+          }}
+          startIcon={<CancelIcon />}
+        >
           Cancel
         </Button>
-        <Button onClick={handleSubmit} color="success">
+        <Button
+          onClick={handleSubmit}
+          color="success"
+          sx={{
+            backgroundColor: '#3f51b5',
+            paddingInline: 2,
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#303f9f',
+            },
+          }}
+          startIcon={<CheckIcon />}
+        >
           Submit
         </Button>
       </DialogActions>
