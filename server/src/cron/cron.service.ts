@@ -7,10 +7,7 @@ export class CronService {
   @Cron('*/10 * * * *')
   async runEveryTenMinutes() {
     try {
-      const reponse = await axios.get(
-        'https://codesnippet-prod.onrender.com/api/cron',
-      );
-      console.log(reponse.data);
+      await axios.get('https://codesnippet-prod.onrender.com/api/snippets');
     } catch (error) {
       console.error(error);
     }
