@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -6,13 +7,14 @@ import {
   TableHead,
   Paper,
   TableRow,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import { formatDate } from '../../utils/dateUtils';
-import { IconButton } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
-import { Tooltip } from '@mui/material';
+import DeleteModal from './DeleteModal';
 
 const SnippetTable = ({
   snippets,
@@ -21,6 +23,27 @@ const SnippetTable = ({
   handleDeleteSnippet,
   handleCopyLink,
 }) => {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [snippetToDelete, setSnippetToDelete] = useState(null);
+
+  const handleOpenDeleteModal = snippetId => {
+    setSnippetToDelete(snippetId);
+    setDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setSnippetToDelete(null);
+    setDeleteModalOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    if (snippetToDelete) {
+      handleDeleteSnippet(snippetToDelete);
+      setSnippetToDelete(null);
+      setDeleteModalOpen(false);
+    }
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="snippet table">
@@ -94,7 +117,7 @@ const SnippetTable = ({
                     color="error"
                     onClick={e => {
                       e.stopPropagation();
-                      handleDeleteSnippet(snippet._id);
+                      handleOpenDeleteModal(snippet._id); // Open the delete modal
                     }}
                   >
                     <DeleteForeverIcon fontSize="medium" />
@@ -116,6 +139,12 @@ const SnippetTable = ({
           ))}
         </TableBody>
       </Table>
+
+      <DeleteModal
+        open={deleteModalOpen}
+        handleClose={handleCloseDeleteModal}
+        handleConfirm={handleConfirmDelete}
+      />
     </TableContainer>
   );
 };
