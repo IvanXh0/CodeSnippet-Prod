@@ -11,6 +11,7 @@ import { useStore } from '../../hooks/useStore';
 import { AuthContext } from '../../auth/AuthContext';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import smallLottie from '../../assets/lottie-small.png';
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const HeroSection = () => {
   const { login } = useContext(AuthContext);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const animationData = JSON.parse(JSON.stringify(animatedJson));
+  const isSmallDevice = window.innerWidth <= 480;
 
   const handleAddSnippetClick = () => {
     if (!authData) {
@@ -127,8 +129,23 @@ const HeroSection = () => {
             />
           </motion.div>
         )}
-        <Box mt={2}>
-          <Lottie animationData={animationData} />
+        <Box
+          mt={2}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {isSmallDevice ? (
+            <img
+              style={{ maxWidth: '100%', height: 'auto' }}
+              src={smallLottie}
+              alt="static animation for smaller devices"
+            />
+          ) : (
+            <Lottie animationData={animationData} loop={true} />
+          )}
         </Box>
       </ThemeProvider>
     </>

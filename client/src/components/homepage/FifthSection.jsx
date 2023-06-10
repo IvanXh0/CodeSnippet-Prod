@@ -44,7 +44,7 @@ const FifthSection = () => {
                   },
                 }}
               >
-                Compile Your Code Effortlessly.
+                Compile your code effortlessly.
               </Typography>
               <Typography
                 variant="body1"

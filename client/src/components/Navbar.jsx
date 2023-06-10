@@ -58,7 +58,11 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar sx={{ boxShadow: 'none' }} color="transparent" position="static">
+    <AppBar
+      sx={{ boxShadow: 'none', backdropFilter: 'blur(5px)' }}
+      color="transparent"
+      position="sticky"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box
@@ -163,7 +167,7 @@ const Navbar = () => {
           </Box>
 
           {/* User Settings */}
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, textAlign: 'center' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {authData ? (
