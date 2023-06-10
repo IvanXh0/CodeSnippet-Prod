@@ -79,7 +79,6 @@ const Navbar = () => {
               variant="h6"
               noWrap
               sx={{
-                fontFamily: 'monospace',
                 fontWeight: 700,
                 color: 'black',
               }}
