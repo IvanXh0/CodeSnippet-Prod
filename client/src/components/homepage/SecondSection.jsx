@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, ThemeProvider, Typography } from '@mui/material';
-import image from '../../assets/second-section.png';
+import image from '../../assets/second-section2.png';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { theme } from '../../utils/themeUtils';
