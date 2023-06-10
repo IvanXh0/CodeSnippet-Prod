@@ -17,7 +17,7 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 import { AuthContext } from '../auth/AuthContext';
 import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
-import logo from '../assets/codesnippetlogo.png';
+import logo from '../assets/logo2.png';
 
 const pages = [
   {
