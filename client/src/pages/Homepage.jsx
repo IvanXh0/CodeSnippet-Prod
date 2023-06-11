@@ -6,6 +6,7 @@ import ThirdSection from '../components/homepage/ThirdSection';
 import FourthSection from '../components/homepage/FourthSection';
 import FifthSection from '../components/homepage/FifthSection';
 import FAQSection from '../components/homepage/FAQSection';
+import Footer from '../components/homepage/Footer';
 
 const Homepage = () => {
   return (
@@ -90,6 +91,17 @@ const Homepage = () => {
       >
         <Container maxWidth="lg" sx={{ my: 6 }}>
           <FAQSection />
+        </Container>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          backgroundColor: '#E8E8E8',
+        }}
+      >
+        <Container maxWidth="lg" sx={{ my: 6 }}>
+          <Footer />
         </Container>
       </Box>
     </motion.div>

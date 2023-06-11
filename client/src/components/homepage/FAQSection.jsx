@@ -194,7 +194,7 @@ const FAQSection = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Any support is greately appreciated and would help for running
+                Any support is greatly appreciated and would help for running
                 costs. You can buy me a beer{' '}
                 <a href="https://www.buymeacoffee.com/IvanXh0">here</a>.{' '}
                 <SportsBarIcon />
