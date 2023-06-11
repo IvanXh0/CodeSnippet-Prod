@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -29,6 +29,15 @@ const NewSnippet = () => {
   const [processing, setProcessing] = useState(false);
   const [outputDetails, setOutputDetails] = useState(null);
   const [languageId, setLanguageId] = useState(null);
+
+  useEffect(() => {
+    if (outputDetails) {
+      const outputElement = document.getElementById('output-message');
+      if (outputElement) {
+        outputElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [outputDetails]);
 
   const handleTitleChange = e => {
     setSnippetTitle(e.target.value);
@@ -240,7 +249,7 @@ const NewSnippet = () => {
                     Output:
                   </Typography>
                   <Box
-                    id="output"
+                    id="output-message"
                     component="pre"
                     sx={{
                       background: '#f6f8fa',
