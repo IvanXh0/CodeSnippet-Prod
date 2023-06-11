@@ -17,6 +17,7 @@ import api from '../../auth/axiosInstance';
 import { languages } from '../../utils/languageUtils';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { toast } from 'react-toastify';
 
 const SnippetEditor = ({
   fetchSnippets,
