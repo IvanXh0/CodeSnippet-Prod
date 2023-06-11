@@ -18,6 +18,8 @@ import { languages } from '../utils/languageUtils';
 import api from '../auth/axiosInstance';
 import axios from 'axios';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewSnippet = () => {
   const [snippetTitle, setSnippetTitle] = useState('');
@@ -57,7 +59,6 @@ const NewSnippet = () => {
       setSnippetCode('');
       setSnippetLanguage('');
 
-      // Redirect to the snippets page
       navigate('/snippets');
     } catch (error) {
       console.error(error);
@@ -92,8 +93,9 @@ const NewSnippet = () => {
       })
       .catch(err => {
         let error = err.response ? err.response.data : err;
-        setProcessing(false);
         console.log(error);
+        setProcessing(false);
+        toast.error('Please add some code and select a language.');
       });
   };
 
@@ -113,19 +115,20 @@ const NewSnippet = () => {
 
       // Processed - we have a result
       if (statusId === 1 || statusId === 2) {
-        // still processing
         setTimeout(() => {
           checkStatus(token);
         }, 2000);
         return;
       } else {
         setProcessing(false);
+        toast('Successfully compiled!');
         setOutputDetails(response.data);
         return;
       }
     } catch (err) {
       console.log('err', err);
       setProcessing(false);
+      toast.error('Something went wrong..');
     }
   };
 
@@ -136,6 +139,7 @@ const NewSnippet = () => {
       exit={{ x: 100, opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
+      <ToastContainer />
       <Box sx={{ p: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={6} lg={6}>
@@ -236,6 +240,7 @@ const NewSnippet = () => {
                     Output:
                   </Typography>
                   <Box
+                    id="output"
                     component="pre"
                     sx={{
                       background: '#f6f8fa',
