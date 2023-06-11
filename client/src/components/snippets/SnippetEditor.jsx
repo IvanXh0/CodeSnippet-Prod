@@ -52,6 +52,7 @@ const SnippetEditor = ({
       });
 
       fetchSnippets();
+      toast('Successfully edited snippet!');
     } catch (error) {
       console.log(error);
     }

@@ -19,6 +19,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { handleAddSnippet } from '../../utils/snippetUtils';
 import { useNavigate } from 'react-router-dom';
 import LoadingAnimation from '../LoadingAnimation';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Snippets = () => {
   const [snippets, setSnippets] = useState([]);
@@ -83,6 +85,7 @@ const Snippets = () => {
     try {
       await api.delete(`/api/snippets/${snippetId}`);
       fetchSnippets();
+      toast('Snippet deleted successfully!');
     } catch (error) {
       console.log(error);
     }
@@ -118,6 +121,7 @@ const Snippets = () => {
 
   const handleCopyLink = snippetId => {
     navigator.clipboard.writeText(`https://www.codesnippet.app/f/${snippetId}`);
+    toast('Link copied!');
   };
 
   const handleAddSnippetClick = () => {
@@ -207,6 +211,7 @@ const Snippets = () => {
           open={open}
         />
       )}
+      <ToastContainer />
     </>
   );
 };
