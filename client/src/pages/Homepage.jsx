@@ -5,6 +5,7 @@ import SecondSection from '../components/homepage/SecondSection';
 import ThirdSection from '../components/homepage/ThirdSection';
 import FourthSection from '../components/homepage/FourthSection';
 import FifthSection from '../components/homepage/FifthSection';
+import FAQSection from '../components/homepage/FAQSection';
 
 const Homepage = () => {
   return (
@@ -77,6 +78,18 @@ const Homepage = () => {
       >
         <Container maxWidth="lg" sx={{ my: 6 }}>
           <FifthSection />
+        </Container>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          minHeight: '50vh',
+          backgroundColor: '#E8E8E8',
+        }}
+      >
+        <Container maxWidth="lg" sx={{ my: 6 }}>
+          <FAQSection />
         </Container>
       </Box>
     </motion.div>
