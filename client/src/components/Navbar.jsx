@@ -19,8 +19,7 @@ import { AuthContext } from '../auth/AuthContext';
 import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 import logo from '../assets/logo2.png';
 import { isExpired } from 'react-jwt';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const pages = [
   {
@@ -248,7 +247,6 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
-      <ToastContainer />
     </AppBar>
   );
 };

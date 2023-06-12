@@ -19,8 +19,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { handleAddSnippet } from '../../utils/snippetUtils';
 import { useNavigate } from 'react-router-dom';
 import LoadingAnimation from '../LoadingAnimation';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Snippets = () => {
   const [snippets, setSnippets] = useState([]);
@@ -211,7 +210,6 @@ const Snippets = () => {
           open={open}
         />
       )}
-      <ToastContainer />
     </>
   );
 };

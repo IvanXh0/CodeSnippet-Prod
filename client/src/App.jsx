@@ -8,12 +8,15 @@ import SnippetDetails from './pages/SnippetDetails';
 import SnippetPage from './pages/SnippetPage';
 import { AnimatePresence } from 'framer-motion';
 import NewSnippet from './pages/NewSnippet';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const location = useLocation();
   return (
     <AuthProvider>
       <Navbar />
+      <ToastContainer />
       <AnimatePresence mode="wait">
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<Homepage />} />
