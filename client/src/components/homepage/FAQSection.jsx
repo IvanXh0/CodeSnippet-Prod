@@ -23,7 +23,7 @@ const FAQSection = () => {
         >
           <Typography
             variant="h4"
-            fontWeight="medium"
+            fontWeight="bolder"
             sx={{
               fontSize: {
                 xs: '1.8rem',
