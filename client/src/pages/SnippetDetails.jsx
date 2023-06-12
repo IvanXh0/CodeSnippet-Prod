@@ -20,6 +20,7 @@ import { useStore } from '../hooks/useStore';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import { Helmet } from 'react-helmet';
 
 const SnippetDetails = () => {
   const { id } = useParams();
@@ -157,135 +158,140 @@ const SnippetDetails = () => {
   }
 
   return (
-    <motion.div
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: 100, opacity: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <Box sx={{ p: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
-            <TextField
-              label="Title"
-              disabled={authData.email !== snippetOwner}
-              value={snippetTitle}
-              onChange={handleTitleChange}
-              fullWidth
-              sx={{ mt: 2 }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
-            <FormControl fullWidth sx={{ mt: 2 }}>
-              <InputLabel id="language-label">Language</InputLabel>
-              <Select
-                label="Language"
+    <>
+      <Helmet>
+        <title>{snippetTitle} | CodeSnippet</title>
+      </Helmet>
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 100, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Box sx={{ p: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <TextField
+                label="Title"
                 disabled={authData.email !== snippetOwner}
-                labelId="language-label"
-                value={snippetLanguage}
-                onChange={handleLanguageChange}
-                autoWidth
-              >
-                {languages.map(language => (
-                  <MenuItem
-                    key={language.id}
-                    value={language.name.split(' ')[0]}
-                    id={language.id}
-                  >
-                    {language.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <Editor
-              defaultLanguage="javascript"
-              language={snippetLanguage.toLowerCase()}
-              theme="vs-dark"
-              defaultValue="console.log('Hello World')"
-              height="70vh"
-              value={snippetCode}
-              onChange={handleCodeChange}
-              options={{
-                automaticLayout: true,
-                fontSize: 14,
-              }}
-            />
-          </Grid>
-          {authData.email && authData.email === snippetOwner && (
-            <Grid item xs={12}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                mt={3}
-              >
-                <Button
-                  onClick={handleSubmit}
-                  variant="contained"
-                  size="medium"
-                  sx={{
-                    backgroundColor: '#3f51b5',
-                    color: '#fff',
-                    '&:hover': {
-                      backgroundColor: '#303f9f',
-                    },
-                  }}
-                  startIcon={<SaveIcon />}
-                >
-                  Save Changes
-                </Button>
-                <Button
-                  onClick={handleCompile}
-                  variant="contained"
-                  disabled={processing}
-                  sx={{
-                    backgroundColor: '#f44336',
-                    color: '#fff',
-                    '&:hover': {
-                      backgroundColor: '#d32f2f',
-                    },
-                  }}
-                  size="medium"
-                  startIcon={<SettingsSuggestIcon />}
-                >
-                  Compile Code
-                </Button>
-              </Box>
+                value={snippetTitle}
+                onChange={handleTitleChange}
+                fullWidth
+                sx={{ mt: 2 }}
+              />
             </Grid>
-          )}
-          {processing ? (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <Typography variant="body1">Compiling...</Typography>
-            </motion.div>
-          ) : (
-            outputDetails && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <Typography mt={2} variant="h6">
-                  Output:
-                </Typography>
-                <Box
-                  component="pre"
-                  sx={{
-                    background: '#f6f8fa',
-                    p: 2,
-                    mt: 2,
-                    borderRadius: '4px',
-                    overflowX: 'auto',
-                  }}
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <FormControl fullWidth sx={{ mt: 2 }}>
+                <InputLabel id="language-label">Language</InputLabel>
+                <Select
+                  label="Language"
+                  disabled={authData.email !== snippetOwner}
+                  labelId="language-label"
+                  value={snippetLanguage}
+                  onChange={handleLanguageChange}
+                  autoWidth
                 >
-                  {atob(outputDetails.stdout)}
+                  {languages.map(language => (
+                    <MenuItem
+                      key={language.id}
+                      value={language.name.split(' ')[0]}
+                      id={language.id}
+                    >
+                      {language.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Editor
+                defaultLanguage="javascript"
+                language={snippetLanguage.toLowerCase()}
+                theme="vs-dark"
+                defaultValue="console.log('Hello World')"
+                height="70vh"
+                value={snippetCode}
+                onChange={handleCodeChange}
+                options={{
+                  automaticLayout: true,
+                  fontSize: 14,
+                }}
+              />
+            </Grid>
+            {authData.email && authData.email === snippetOwner && (
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 2,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  mt={3}
+                >
+                  <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    size="medium"
+                    sx={{
+                      backgroundColor: '#3f51b5',
+                      color: '#fff',
+                      '&:hover': {
+                        backgroundColor: '#303f9f',
+                      },
+                    }}
+                    startIcon={<SaveIcon />}
+                  >
+                    Save Changes
+                  </Button>
+                  <Button
+                    onClick={handleCompile}
+                    variant="contained"
+                    disabled={processing}
+                    sx={{
+                      backgroundColor: '#f44336',
+                      color: '#fff',
+                      '&:hover': {
+                        backgroundColor: '#d32f2f',
+                      },
+                    }}
+                    size="medium"
+                    startIcon={<SettingsSuggestIcon />}
+                  >
+                    Compile Code
+                  </Button>
                 </Box>
+              </Grid>
+            )}
+            {processing ? (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <Typography variant="body1">Compiling...</Typography>
               </motion.div>
-            )
-          )}
-        </Grid>
-      </Box>
-    </motion.div>
+            ) : (
+              outputDetails && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <Typography mt={2} variant="h6">
+                    Output:
+                  </Typography>
+                  <Box
+                    component="pre"
+                    sx={{
+                      background: '#f6f8fa',
+                      p: 2,
+                      mt: 2,
+                      borderRadius: '4px',
+                      overflowX: 'auto',
+                    }}
+                  >
+                    {atob(outputDetails.stdout)}
+                  </Box>
+                </motion.div>
+              )
+            )}
+          </Grid>
+        </Box>
+      </motion.div>
+    </>
   );
 };
 
