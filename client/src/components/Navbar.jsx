@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +18,9 @@ import axios from 'axios';
 import { AuthContext } from '../auth/AuthContext';
 import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 import logo from '../assets/logo2.png';
+import { isExpired } from 'react-jwt';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const pages = [
   {
@@ -31,6 +34,26 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { authData, setAuthData } = useStore();
   const { login, logout } = useContext(AuthContext);
+  const token = localStorage.getItem('accessToken');
+
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      if (token) {
+        const expiredToken = isExpired(token);
+        if (expiredToken) {
+          googleLogout(); // Logout using the appropriate method
+          localStorage.removeItem('AuthData'); // Remove auth data from local storage
+          localStorage.removeItem('accessToken');
+          logout();
+          setAuthData(null); // Clear auth data in state
+
+          toast.info('Your session has expired, please login again');
+        }
+      }
+    };
+
+    checkTokenExpiration();
+  }, [token, logout, setAuthData]);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -225,6 +248,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </Container>
+      <ToastContainer />
     </AppBar>
   );
 };
