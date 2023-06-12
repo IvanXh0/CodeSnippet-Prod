@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, ThemeProvider } from '@mui/material';
-import search from '../../assets/search.png';
+import search from '../../assets/search.webp';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { theme } from '../../utils/themeUtils';

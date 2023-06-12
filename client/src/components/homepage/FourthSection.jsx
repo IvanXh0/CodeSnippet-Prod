@@ -3,7 +3,7 @@ import { Box, Typography, ThemeProvider } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { theme } from '../../utils/themeUtils';
-import intellisense from '../../assets/intellisense.png';
+import intellisense from '../../assets/intellisense.webp';
 
 const FourthSection = () => {
   const [ref, inView] = useInView({

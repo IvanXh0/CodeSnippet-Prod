@@ -11,7 +11,7 @@ import { useStore } from '../../hooks/useStore';
 import { AuthContext } from '../../auth/AuthContext';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import smallLottie from '../../assets/lottie-small.png';
+import smallLottie from '../../assets/lottie-small.webp';
 
 const HeroSection = () => {
   const navigate = useNavigate();

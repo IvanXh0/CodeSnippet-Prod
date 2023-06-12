@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, ThemeProvider, Typography } from '@mui/material';
-import image from '../../assets/compile.png';
+import image from '../../assets/compile.webp';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { theme } from '../../utils/themeUtils';
