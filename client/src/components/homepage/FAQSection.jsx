@@ -14,29 +14,29 @@ import SportsBarIcon from '@mui/icons-material/SportsBar';
 const FAQSection = () => {
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="center"
-        textAlign="center"
-        alignItems="center"
-      >
-        <Typography
-          variant="h4"
-          fontWeight="medium"
-          sx={{
-            fontSize: {
-              xs: '1.8rem',
-              sm: '1.9rem',
-              md: '2.0rem',
-              lg: '2.2rem',
-            },
-          }}
+      <ThemeProvider theme={theme}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          textAlign="center"
+          alignItems="center"
         >
-          What you might be wondering:
-        </Typography>
-      </Box>
-      <Box mt={5}>
-        <ThemeProvider theme={theme}>
+          <Typography
+            variant="h4"
+            fontWeight="medium"
+            sx={{
+              fontSize: {
+                xs: '1.8rem',
+                sm: '1.9rem',
+                md: '2.0rem',
+                lg: '2.2rem',
+              },
+            }}
+          >
+            What you might be wondering:
+          </Typography>
+        </Box>
+        <Box mt={5}>
           <Accordion
             sx={{
               background: 'transparent',
@@ -201,8 +201,8 @@ const FAQSection = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-        </ThemeProvider>
-      </Box>
+        </Box>
+      </ThemeProvider>
     </>
   );
 };
