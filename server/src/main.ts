@@ -4,7 +4,7 @@ import { CacheControlMiddleware } from './middlewares/cacheControl.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(new CacheControlMiddleware())
+  app.use(new CacheControlMiddleware().use)
   app.setGlobalPrefix('api');
   app.enableCors();
 
