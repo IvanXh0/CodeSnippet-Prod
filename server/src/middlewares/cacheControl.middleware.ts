@@ -1,10 +1,10 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { NextFunction, Request, Response } from "express";
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
 
 @Injectable()
 export class CacheControlMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    res.setHeader('Cache-Control', 'max-age=31536000');
-    next()
+    res.setHeader('Cache-Control', 'public, max-age=31536000, must-revalidate');
+    next();
   }
 }
