@@ -166,7 +166,7 @@ const Navbar = () => {
                   useOneTap={true}
                   onSuccess={async credentialResponse => {
                     const { data } = await axios.post(
-                      'http://localhost:8080/api/auth/login',
+                      'https://codesnippet-prod.onrender.com/api/auth/login',
                       {
                         token: credentialResponse.credential,
                       }
