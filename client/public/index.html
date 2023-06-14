@@ -9,6 +9,11 @@
       name="CodeSnippet"
       content="A code snippet sharing and editing website"
     />
+    <!-- Added meta tag for CodeSnippet -->
+    <meta
+      name="description"
+      content="CodeSnippet is a comprehensive code snippet sharing, editing and compiling website that allows developers to store, discover, and collaborate on code snippets. Find useful code examples, share your own snippets, and enhance your coding productivity with CodeSnippet."
+    />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -18,17 +23,28 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>CodeSnippet: A code snippet sharing and editing website</title>
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load Roboto font -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load Nunito font -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
