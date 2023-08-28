@@ -28,12 +28,12 @@ const SnippetDetails = () => {
   const [snippetCode, setSnippetCode] = useState('');
   const [snippetLanguage, setSnippetLanguage] = useState('');
   const [snippetTitle, setSnippetTitle] = useState('');
-  const [snippetOwner, setSnippetOwner] = useState('');
   const [languageId, setLanguageId] = useState(null);
   const navigation = useNavigate();
   const { authData } = useStore();
   const [processing, setProcessing] = useState(false);
   const [outputDetails, setOutputDetails] = useState(null);
+  const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     const fetchSnippet = async () => {
@@ -44,11 +44,18 @@ const SnippetDetails = () => {
         setSnippetTitle(title);
         setSnippetCode(code);
         setSnippetLanguage(language);
-        setSnippetOwner(email);
 
         const selectedLanguage = languages.find(
           lang => lang.name.split(' ')[0] === language
         );
+
+        if (!authData) {
+          setIsOwner(false);
+        }
+
+        if (authData && email === authData.email) {
+          setIsOwner(true);
+        }
 
         setLanguageId(selectedLanguage?.id || null);
       } catch (error) {
@@ -153,7 +160,9 @@ const SnippetDetails = () => {
       setProcessing(false);
     }
   };
+
   if (!snippet) {
+    console.log(snippet);
     return <div>Maybe log in first?...</div>; // Render a loading state or handle the case when snippet is not available yet
   }
 
@@ -173,7 +182,7 @@ const SnippetDetails = () => {
             <Grid item xs={12} sm={6} md={6} lg={6}>
               <TextField
                 label="Title"
-                disabled={authData.email !== snippetOwner}
+                disabled={!isOwner}
                 value={snippetTitle}
                 onChange={handleTitleChange}
                 fullWidth
@@ -185,7 +194,7 @@ const SnippetDetails = () => {
                 <InputLabel id="language-label">Language</InputLabel>
                 <Select
                   label="Language"
-                  disabled={authData.email !== snippetOwner}
+                  disabled={!isOwner}
                   labelId="language-label"
                   value={snippetLanguage}
                   onChange={handleLanguageChange}
@@ -218,51 +227,50 @@ const SnippetDetails = () => {
                 }}
               />
             </Grid>
-            {authData.email && authData.email === snippetOwner && (
-              <Grid item xs={12}>
-                <Box
+            <Grid item xs={12}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: 2,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                mt={3}
+              >
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!isOwner}
+                  variant="contained"
+                  size="medium"
                   sx={{
-                    display: 'flex',
-                    gap: 2,
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    backgroundColor: '#3f51b5',
+                    color: '#fff',
+                    '&:hover': {
+                      backgroundColor: '#303f9f',
+                    },
                   }}
-                  mt={3}
+                  startIcon={<SaveIcon />}
                 >
-                  <Button
-                    onClick={handleSubmit}
-                    variant="contained"
-                    size="medium"
-                    sx={{
-                      backgroundColor: '#3f51b5',
-                      color: '#fff',
-                      '&:hover': {
-                        backgroundColor: '#303f9f',
-                      },
-                    }}
-                    startIcon={<SaveIcon />}
-                  >
-                    Save Changes
-                  </Button>
-                  <Button
-                    onClick={handleCompile}
-                    variant="contained"
-                    disabled={processing}
-                    sx={{
-                      backgroundColor: '#f44336',
-                      color: '#fff',
-                      '&:hover': {
-                        backgroundColor: '#d32f2f',
-                      },
-                    }}
-                    size="medium"
-                    startIcon={<SettingsSuggestIcon />}
-                  >
-                    Compile Code
-                  </Button>
-                </Box>
-              </Grid>
-            )}
+                  Save Changes
+                </Button>
+                <Button
+                  onClick={handleCompile}
+                  variant="contained"
+                  disabled={!isOwner || processing}
+                  sx={{
+                    backgroundColor: '#f44336',
+                    color: '#fff',
+                    '&:hover': {
+                      backgroundColor: '#d32f2f',
+                    },
+                  }}
+                  size="medium"
+                  startIcon={<SettingsSuggestIcon />}
+                >
+                  Compile Code
+                </Button>
+              </Box>
+            </Grid>
             {processing ? (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <Typography variant="body1">Compiling...</Typography>

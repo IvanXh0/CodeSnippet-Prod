@@ -76,7 +76,7 @@ export class SnippetsController {
     return this.snippetsService.addNewSnippet(snippet, userEmail);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   getSnippetById(@Param('id') id: string): Promise<ResponseSnippetDto> {
     return this.snippetsService.getSnippetById(id);
