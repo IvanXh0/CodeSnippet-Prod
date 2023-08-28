@@ -64,7 +64,7 @@ const SnippetDetails = () => {
     };
 
     fetchSnippet();
-  }, [id]);
+  }, [id, authData]);
 
   const handleTitleChange = e => {
     setSnippetTitle(e.target.value);
