@@ -18,7 +18,7 @@ import { languages } from '../utils/languageUtils';
 import api from '../auth/axiosInstance';
 import axios from 'axios';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet } from 'react-helmet';
 
@@ -153,7 +153,6 @@ const NewSnippet = () => {
         exit={{ x: 100, opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <ToastContainer />
         <Box sx={{ p: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={6} lg={6}>

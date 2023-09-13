@@ -21,6 +21,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import { Helmet } from 'react-helmet';
+import LoadingAnimation from '../components/LoadingAnimation';
 
 const SnippetDetails = () => {
   const { id } = useParams();
@@ -162,8 +163,7 @@ const SnippetDetails = () => {
   };
 
   if (!snippet) {
-    console.log(snippet);
-    return <div>Maybe log in first?...</div>; // Render a loading state or handle the case when snippet is not available yet
+    <LoadingAnimation />;
   }
 
   return (
